@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../models/admin.model");
 
 const register = async (req, res) => {
+    console.log(req.body);
     try {
         const { name, mobile, email, password, address, role } = req.body;
         let user = await Admin.findOne({ email });
@@ -34,6 +35,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     const { mobile, password } = req.body;
+    console.log(mobile, password);
     const findUser = await Admin.findOne({ mobile });
     if (findUser) {
         bcrypt

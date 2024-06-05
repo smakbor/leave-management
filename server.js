@@ -2,9 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
@@ -12,20 +13,21 @@ app.use(cors());
 
 // TEST ROUTE
 
-app.get("/test", (req, res) => {
+app.get("/health", (req, res) => {
     res.send("This is test server and the path is right");
 });
 
 // DATABASE CONNECTION
+//"mongodb+srv://smakbar3965:aYxH0ymWhjcyqIKW@cluster0.tto7qr6.mongodb.net/sardar-inventory"
 
 mongoose
-    .connect("mongodb://127.0.0.1:27017/leave-management")
+    .connect(process.env.MONGODB_URI)
     .then(() => {
         console.log("DB Connected");
     })
     .catch((error) => handleError(error));
 
-//imported Routes
+// imported Routes
 
 const admin = require("./routes/atuh.route");
 const department = require("./routes/department.route");
